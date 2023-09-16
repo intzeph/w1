@@ -1,0 +1,31 @@
+<resources>
+
+    <string name="app_name">WildTech</string>
+    <string name="hello_register_to_get_started">Hello! Register to get started</string>
+    <string name="register_with_one_of_the_following">Register with one of the following.</string>
+    <string name="password_note">Password must be at least 8 characters, and contain both letters and numbers.</string>
+    <string name="welcome_back">Welcome back! Glad to see you, Again!</string>
+    <string name="log_in_with_one_of_the_following">Log in with one of the following.</string>
+    <string name="default_web_client_id">76858577824-b36k1rhincj15nj8s3s164nv4uugenvk.apps.googleusercontent.com</string>
+    <string name="s1">These Are The Terms and Conditions Governing The Use Of This Service And The Service And The Agreement That Operates Between You And The Company. These Terms And Condition Set Out The Rights And Obligations Of All Users Regarding The Use Of The Service.</string>
+    <string name="s2">Your Access To And Use Of The Service Is Conditioned On Your Acceptance Of And Compliance With These Terms And Conditions. These Terms And Conditions Apply To All Visitors, Users And Others Who Access Or Use The Service.</string>
+    <string name="s3">By Accessing Or Using The Service You Agree To Be Bound By These Terms And Conditions. If You Fisagree With Any Part Of These Terms And Conditions Then You May Not Access The Service.</string>
+    <string name="s4">Your Access To And Use Of The Service Is Also Conditioned On Your Acceptance Of And Compliance With The Privacy Policy Of The Company. Our Privacy Policy Describes Our Policies And Procedures On The Collection, Use And Disclosure Of Your Personal Information When You Use The Application Or The Website And Tells You About Your privacy Rights And How The law Protects You. Please Read Our Privacy Policy Carefully Before Using Our Service.</string>
+    <string name="s5">Our Service Allows You To Post Content. You Are Responsible For The Content That You Post To The Service, Including Its Legality, Reliability, And Appropriateness.</string>
+    <string name="s6">If You Have Any Questions About These Terms And Conditions, You Can Contact ● By Sending Us An email: WildTechResort@email.com</string>
+    <string name="i_agree_to_the_terms"><![CDATA[I agree to the Terms & Conditions]]></string>
+    <string name="firebase_link">https://wildtech-b4fc6-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
+
+    <string name="slide_title_1">first title</string>
+    <string name="slide_title_2">second title</string>
+    <string name="slide_title_3">third title</string>
+
+    <string name="slide_descript_1">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</string>
+    <string name="slide_descript_2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</string>
+    <string name="slide_descript_3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</string>
+    <string name="firebase_url">https://wildtech-b4fc6-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
