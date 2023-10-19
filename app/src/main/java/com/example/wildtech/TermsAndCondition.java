@@ -20,7 +20,7 @@ public class TermsAndCondition extends AppCompatActivity {
     CheckBox checkbox;
     ToggleButton button;
 
-    Button exitBtn;
+    Button disagreeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class TermsAndCondition extends AppCompatActivity {
 
         checkbox=findViewById(R.id.checkBox);
         button=findViewById(R.id.button1);
-        exitBtn=findViewById(R.id.exitBtn);
+        disagreeBtn=findViewById(R.id.disagreeBtn);
 
-        exitBtn.setBackgroundTintList(null);
+        disagreeBtn.setBackgroundTintList(null);
 
 
         checkbox.setOnClickListener(new View.OnClickListener() {
@@ -72,14 +72,14 @@ public class TermsAndCondition extends AppCompatActivity {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure you want to exit?");
+        builder.setMessage("Do you disagree with the terms and conditions?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //user click yes
+                Intent intent = new Intent(TermsAndCondition.this, Splash_Screen.class);
+                startActivity(intent);
                 finish();
-                System.exit(0);
-
 
             }
         });
@@ -94,4 +94,35 @@ public class TermsAndCondition extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    private boolean backPressAllowed = false;
+
+    public void onBackPressed() {
+
+        if (backPressAllowed) {
+            super.onBackPressed(); // Allow back navigation
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Do you disagree with the terms and conditions?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    backPressAllowed = true;
+                    onBackPressed();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
+    }
+
 }

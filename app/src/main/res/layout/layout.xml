@@ -8,34 +8,42 @@
     <ImageView
         android:id="@+id/sliderImage"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:src="@drawable/pic1"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/onboard3"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
         android:fontFamily="@font/d_dinbold"
-        android:text="@string/slide_title_1"
-        android:textSize="25sp"
+        android:text="@string/slide_title_3"
+        android:textSize="27sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sliderImage" />
 
+
     <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="24dp"
         android:gravity="center"
-        android:id="@+id/description"
-        android:text="@string/slide_descript_1"
-        android:textSize="15sp"
+        android:text="@string/slide_descript_3"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />

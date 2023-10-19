@@ -17,7 +17,12 @@
 
     <style name="CustomTextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!-- Customize the stroke color and width -->
-        <item name="boxStrokeColor">#EBECF0</item> <!-- Replace with your desired default stroke color -->
-        <item name="boxStrokeWidth">2dp</item> <!-- Replace with your desired stroke width -->
+        <item name="boxStrokeColor">#EBECF0</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+    <style name="AppTheme" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Other theme attributes -->
+        <item name="colorControlActivated">@color/black</item>
     </style>
 </resources>

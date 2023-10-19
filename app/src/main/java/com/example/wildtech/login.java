@@ -61,7 +61,7 @@ public class login extends AppCompatActivity {
 
     GoogleSignInClient mGoogleSignInClient;
 
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     String passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?!.*[/\\?]).{8,}$";
 
@@ -221,8 +221,10 @@ public class login extends AppCompatActivity {
             if (TextUtils.isEmpty(password)) {
                 passwordLayout.setError("This field is required.");
             }
-        } else if (!email.matches(emailPattern)) {
-            emailLayout.setError("Enter a valid email");
+        }
+        else if (!email.contains("@") || !email.matches(emailPattern) || email.contains(" ")) {
+            emailLayout.setError("Enter a valid email address!");
+
         }
 
 
@@ -312,8 +314,8 @@ public class login extends AppCompatActivity {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             if (account != null) {
-
                 firebaseAuth(account.getIdToken());
+                Toast.makeText(this, "Sign-in sucessful", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Sign-in failed", Toast.LENGTH_SHORT).show();
             }
@@ -382,5 +384,11 @@ public class login extends AppCompatActivity {
     public  void goToRegister(View view){
         Intent intent =  new Intent(this, Register.class);
         startActivity(intent);
+    }
+
+    public void goToForgot(View view) {
+        Intent intent = new Intent(this, Forgot.class);
+        startActivity(intent);
+
     }
 }

@@ -1,9 +1,11 @@
 package com.example.wildtech;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.text.TextRunShaper;
@@ -52,7 +54,7 @@ public class Splash_Screen extends AppCompatActivity {
         Log.d("Splash_Screen", "user: " + user);
 
         if (termsAccepted) {
-            // User accepted the terms, redirect to LoginActivity.
+
             Log.d("Splash_Screen", "Redirecting to login");
             startActivity(new Intent(Splash_Screen.this, login.class));
             finish();
@@ -65,7 +67,7 @@ public class Splash_Screen extends AppCompatActivity {
 
         if (user != null) {
             Log.d("Splash_Screen", "Redirecting to MainActivity");
-            // User is already logged in, redirect to the home page
+
             startActivity(new Intent(Splash_Screen.this, MainActivity.class));
             finish(); // Finish the Splash_Screen activity.
         } else {
@@ -93,7 +95,7 @@ public class Splash_Screen extends AppCompatActivity {
         }
 
         if(dots.length>0){
-            dots[position].setTextColor(ContextCompat.getColor(this, R.color.black));
+            dots[position].setTextColor(ContextCompat.getColor(this, R.color.app_green));
 
         }
 
@@ -122,6 +124,33 @@ public class Splash_Screen extends AppCompatActivity {
 
         Intent intent = new Intent(this, TermsAndCondition.class);
         startActivity(intent);
-        finish();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to exit?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //user click yes
+                finish();
+                System.exit(0);
+
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //user click no
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 }

@@ -1,15 +1,18 @@
 package com.example.wildtech;
 
 public class UserHelperClass {
-    String first_name, last_name;
+    String first_name, last_name, user_email;
 
     public UserHelperClass(){
 
     }
 
-    public UserHelperClass(String first_name, String last_name) {
+
+
+    public UserHelperClass(String first_name, String last_name, String user_email) {
         this.first_name = first_name;
         this.last_name = last_name;
+        this.user_email = user_email;
 
     }
 
@@ -28,6 +31,17 @@ public class UserHelperClass {
     public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
+
+    public String getUser_email() {
+        return user_email;
+    }
+
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
+    }
+
+
+
 
 
 }

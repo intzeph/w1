@@ -48,9 +48,9 @@ import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText firstnameEditText, lastnameEditText, emailEditText,passwordEditText;
+    TextInputEditText firstnameEditText, lastnameEditText, emailEditText,passwordEditText, confirmPasswordEditText;
 
-    TextInputLayout nameLayout, lastNameLayout, emailLayout, passwordLayout;
+    TextInputLayout nameLayout, lastNameLayout, emailLayout, passwordLayout, ConfirmPasswordLayout;
     Button registerBtn, R_googleBtn,R_fbBtn;
 
     ProgressBar progressBar;
@@ -68,7 +68,12 @@ public class Register extends AppCompatActivity {
 
     String emailPattern="[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+    String namePattern="^[^0-9]+$";
+
+
     int RC_SIGN_IN = 20;
+
+    private boolean hasErrors = false;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -83,17 +88,22 @@ public class Register extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordField);
         registerBtn = findViewById(R.id.registerBtn);
         R_googleBtn=findViewById(R.id.R_googleBtn);
-        R_fbBtn=findViewById(R.id.R_fbBtn);
         progressBar= findViewById(R.id.progressBar);
         nameLayout = findViewById(R.id.nameLayout);
         lastNameLayout = findViewById(R.id.lastNameLayout);
         emailLayout = findViewById(R.id.emailLayout);
         passwordLayout =findViewById(R.id.passwordLayout);
+        ConfirmPasswordLayout = findViewById(R.id.ConfirmPasswordLayout);
+        confirmPasswordEditText= findViewById(R.id.ConfirmPasswordField);
+        R_fbBtn= findViewById(R.id.R_fbBtn);
 
 
         //remove backgroundTint
         R_googleBtn.setBackgroundTintList(null);
         R_fbBtn.setBackgroundTintList(null);
+
+
+
 
         firstnameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -163,6 +173,25 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        confirmPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                allAuth();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
 
 
 
@@ -178,6 +207,17 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
 
                 PerformAuth();
+
+                //lets see if we can use this instead
+//                if(hasErrors){
+//                    registerBtn.setEnabled(false);
+//                }
+//                else{
+//                    registerBtn.setEnabled(true);
+//                }
+
+
+
             }
         });
 
@@ -195,44 +235,77 @@ public class Register extends AppCompatActivity {
     private void allAuth() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        String confirmPassword = confirmPasswordEditText.getText().toString();
         String firstName = firstnameEditText.getText().toString();
         String lastName = lastnameEditText.getText().toString();
 
         emailLayout.setError(null);
         passwordLayout.setError(null);
+        ConfirmPasswordLayout.setError(null);
         nameLayout.setError(null);
         lastNameLayout.setError(null);
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName)) {
+        if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
 
-            if (TextUtils.isEmpty(email)) {
-                emailLayout.setError("This field is required.");
-            }
-            if (TextUtils.isEmpty(password)) {
-                passwordLayout.setError("This field is required.");
-            }
+
             if (TextUtils.isEmpty(firstName)) {
                 nameLayout.setError("This field is required.");
+
             }
             if (TextUtils.isEmpty(lastName)) {
                 lastNameLayout.setError("This field is required.");
+
             }
+            if (TextUtils.isEmpty(email)) {
+                emailLayout.setError("This field is required.");
+
+            }
+            if (TextUtils.isEmpty(password)) {
+                passwordLayout.setError("This field is required.");
+
+            }
+            if (TextUtils.isEmpty(confirmPassword)) {
+                ConfirmPasswordLayout.setError("This field is required.");
+
+            }
+            hasErrors =true;
         }
-        else if (!email.contains("@")) {
+        if (firstName.contains("@") || firstName.contains(".") || firstName.contains("/") || firstName.contains("*") || !firstName.matches(namePattern)) {
+            nameLayout.setError("Invalid first name");
+            hasErrors =true;
+
+        }
+        if (lastName.contains("@") || lastName.contains(".") || lastName.contains("/") || lastName.contains("*") || !lastName.matches(namePattern)) {
+            lastNameLayout.setError("Invalid last name");
+
+            hasErrors =true;
+        }
+        else if (!email.contains("@") || !email.matches(emailPattern)) {
             emailLayout.setError("Enter a valid email address!");
+            hasErrors =true;
+
         }
-        else if (!email.matches(emailPattern)) {
-            emailLayout.setError("Enter a valid email address!");
-        }
+
         else if (!password.matches(passwordPattern)) {
             passwordLayout.setError("Password must contain at least 8 characters, including an uppercase letter and a number only.");
+            hasErrors =true;
+
         }
 
         else if (password.contains(" ")) {
             passwordLayout.setError("Password cannot contain spaces.");
+            hasErrors =true;
+
         }
         else if (password.contains(".")) {
             passwordLayout.setError("Password cannot contain dot.");
+            hasErrors =true;
+
+        }
+        else if(!confirmPassword.matches(password)){
+            ConfirmPasswordLayout.setError("Password didn't match");
+            hasErrors =true;
+
         }
     }
 
@@ -266,6 +339,7 @@ public class Register extends AppCompatActivity {
             if (account != null) {
                 // Handle the signed-in Google account
                 firebaseAuth(account.getIdToken());
+                Toast.makeText(this, "Sign-in sucessful", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Sign-in failed", Toast.LENGTH_SHORT).show();
             }
@@ -321,6 +395,7 @@ public class Register extends AppCompatActivity {
 
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        String confirmPassword = confirmPasswordEditText.getText().toString();
         String firstName = firstnameEditText.getText().toString();
         String lastName = lastnameEditText.getText().toString();
 
@@ -329,36 +404,65 @@ public class Register extends AppCompatActivity {
         nameLayout.setError(null);
         lastNameLayout.setError(null);
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName)) {
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(confirmPassword)) {
 
-            if (TextUtils.isEmpty(email)) {
-                emailLayout.setError("This field is required.");
-            }
-            if (TextUtils.isEmpty(password)) {
-                passwordLayout.setError("This field is required.");
-            }
             if (TextUtils.isEmpty(firstName)) {
                 nameLayout.setError("This field is required.");
+
             }
             if (TextUtils.isEmpty(lastName)) {
                 lastNameLayout.setError("This field is required.");
+
             }
+            if (TextUtils.isEmpty(email)) {
+                emailLayout.setError("This field is required.");
+
+            }
+            if (TextUtils.isEmpty(password)) {
+                passwordLayout.setError("This field is required.");
+
+            }
+            if (TextUtils.isEmpty(confirmPassword)) {
+                ConfirmPasswordLayout.setError("This field is required.");
+
+            }
+            hasErrors =true;
+        }
+        else if (firstName.contains("@") || firstName.contains(" . ") || firstName.contains("/") || firstName.contains("*")) {
+            nameLayout.setError("Invalid first name");
+            hasErrors =true;
+
+        }
+        else if (lastName.contains("@") || lastName.contains(" . ") || lastName.contains("/") || lastName.contains("*")) {
+            lastNameLayout.setError("Invalid last name");
+            hasErrors =true;
+
         }
         else if (!email.contains("@")) {
             emailLayout.setError("Enter a valid email address!");
+            hasErrors =true;
         }
         else if (!email.matches(emailPattern)) {
             emailLayout.setError("Enter a valid email address!");
+            hasErrors =true;
         }
         else if (!password.matches(passwordPattern)) {
             passwordLayout.setError("Password must contain at least 8 characters, including an uppercase letter and a number only.");
+            hasErrors =true;
         }
 
         else if (password.contains(" ")) {
             passwordLayout.setError("Password cannot contain spaces.");
+            hasErrors =true;
         }
         else if (password.contains(".")) {
             passwordLayout.setError("Password cannot contain dot.");
+            hasErrors =true;
+        }
+        else if(!confirmPassword.matches(password)){
+            ConfirmPasswordLayout.setError("Password didn't match");
+            hasErrors =true;
+
         }
         else {
             progressBar.setVisibility(View.VISIBLE);
@@ -376,7 +480,7 @@ public class Register extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     SignInMethodQueryResult result = task.getResult();
                     if (result != null && result.getSignInMethods() != null && !result.getSignInMethods().isEmpty()) {
-                        emailEditText.setError("Email already exists");
+                        emailLayout.setError("Email already exists");
                         progressBar.setVisibility(View.GONE);
 
                     } else {
@@ -397,6 +501,7 @@ public class Register extends AppCompatActivity {
         String password = passwordEditText.getText().toString();
         String firstName = firstnameEditText.getText().toString();
         String lastName = lastnameEditText.getText().toString();
+        String emailR =emailEditText.getText().toString();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -406,7 +511,7 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             String userId = mAuth.getCurrentUser().getUid();
-                            UserHelperClass newUser = new UserHelperClass(firstName, lastName);
+                            UserHelperClass newUser = new UserHelperClass(firstName, lastName, emailR);
                             DatabaseReference userRef = databaseRef.child(userId);
                             userRef.setValue(newUser);
 
@@ -419,7 +524,7 @@ public class Register extends AppCompatActivity {
 
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 // Handle the case where the email is already in use
-                                emailEditText.setError("Email already exists");
+                                emailLayout.setError("Email already exists");
                             } else {
 
                                 Toast.makeText(Register.this, "Registration failed.", Toast.LENGTH_SHORT).show();

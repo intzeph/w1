@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +24,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 
 public class Account extends AppCompatActivity {
@@ -32,10 +41,20 @@ public class Account extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     BottomNavigationView bottomNavigationView;
 
+    DatabaseReference databaseRef;
+
+    TextView user_name;
+
+    ImageView imgProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+
+
+        user_name=findViewById(R.id.U_name);
+        imgProfile=findViewById(R.id.AprofileImageView);
 
         auth=FirebaseAuth.getInstance();
 
@@ -45,6 +64,8 @@ public class Account extends AppCompatActivity {
         button = findViewById(R.id.btnLogout);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        databaseRef = FirebaseDatabase.getInstance(getString(R.string.firebase_url)).getReference("Users");
 
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -66,7 +87,6 @@ public class Account extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        user= auth.getCurrentUser();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +112,51 @@ public class Account extends AppCompatActivity {
 
             }
         });
+
+
+        if(user !=null){
+            String userId= user.getUid();
+            databaseRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    String firstName = snapshot.child("first_name").getValue(String.class);
+                    if(snapshot.exists()){
+                        user_name.setText(firstName);
+                    }
+                    GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                    if(googleAccount !=null){
+                        String googleDisplayName = googleAccount.getDisplayName();
+
+                        // gonna to split the google name into first name only
+                        String[] nameParts = googleDisplayName.split(" ");
+                        String googleFirstName = nameParts.length > 0 ? nameParts[0] : "";
+
+                        String profileImageUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "";
+
+                        if(user.getProviderData().get(1).getProviderId().equals("google.com")){
+                            user_name.setText(googleDisplayName);
+                            if (!profileImageUrl.isEmpty()) {
+                                Picasso.get().load(profileImageUrl).into(imgProfile);
+                            }
+                        }
+                        else{
+                            user_name.setText(firstName);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else{
+            Intent intent = new Intent(getApplicationContext(), login.class);
+            startActivity(intent);
+            finish();
+        }
 
 
 
