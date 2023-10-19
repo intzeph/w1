@@ -13,6 +13,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
+<<<<<<< HEAD
+=======
+import product_details.product_details_fragment;
+
+>>>>>>> cc4891f (final commit)
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private Context context;

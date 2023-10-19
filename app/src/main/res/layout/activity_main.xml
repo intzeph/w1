@@ -46,6 +46,7 @@
                             android:id="@+id/profileImageView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:src="@drawable/no_img"
                              />
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
@@ -60,7 +61,7 @@
                     android:textSize="22sp" />
 
                 <TextView
-                    android:id="@+id/user_name"
+                    android:id="@+id/user_details2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -98,7 +99,6 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -144,22 +144,31 @@
 
 
                 <!--horizontal SV -->
-                <androidx.recyclerview.widget.RecyclerView
+                <HorizontalScrollView
                     android:id="@+id/popular_sv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:fillViewport="true"
                     android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/most_popular"/>
+                    app:layout_constraintTop_toBottomOf="@+id/most_popular">
+
+                    <LinearLayout
+                        android:id="@+id/popular_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        >
 
 
+                    </LinearLayout>
+                </HorizontalScrollView>
 
                 <!--tag2 -->
                 <TextView
@@ -178,23 +187,32 @@
                     app:layout_constraintTop_toBottomOf="@+id/popular_sv" />
 
                 <!--horizontal SV 2-->
-                <androidx.recyclerview.widget.RecyclerView
+                <HorizontalScrollView
                     android:id="@+id/pools_sv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:fillViewport="true"
                     android:scrollbars="none"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pools"/>
+                    app:layout_constraintTop_toBottomOf="@+id/pools">
+
+                    <LinearLayout
+                        android:id="@+id/pools_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        >
+
+                    </LinearLayout>
 
 
+                </HorizontalScrollView>
 
 
                 <!--tag3 -->
@@ -214,21 +232,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/pools_sv" />
 
                 <!--horizontal SV  3-->
-                <androidx.recyclerview.widget.RecyclerView
+                <HorizontalScrollView
                     android:id="@+id/cottages_sv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:fillViewport="true"
                     android:scrollbars="none"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cottages"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cottages">
+
+
+                    <LinearLayout
+                        android:id="@+id/cottages_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        >
+
+                    </LinearLayout>
+
+
+
+                </HorizontalScrollView>
 
 
                 <!--tag4 -->
@@ -248,24 +279,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/cottages_sv" />
 
                 <!--horizontal SV 4-->
-                <androidx.recyclerview.widget.RecyclerView
+                <HorizontalScrollView
                     android:id="@+id/rooms_sv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:fillViewport="true"
                     android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rooms">
 
+                    <LinearLayout
+                        android:id="@+id/rooms_linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        >
+
+                    </LinearLayout>
 
 
-                </androidx.recyclerview.widget.RecyclerView>
+
+                </HorizontalScrollView>
 
 
                 <!--tag4 -->
@@ -300,50 +340,37 @@
 
                 </LinearLayout>
 
+
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/user_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="19dp"
-                    android:clickable="true"
-                    android:padding="5dp"
-                    android:text="View more"
-                    android:textColor="@color/btn_blue"
-                    android:textSize="14sp"
+                    android:layout_marginTop="50dp"
+                    android:text="Hello world"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/highlight_layout" />
 
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/user_details"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="50dp"-->
-                <!--                    android:text="Hello world"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/highlight_layout" />-->
+                <TextView
+                    android:id="@+id/user_details3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:text="Hello world"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_details" />
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/user_details3"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="100dp"-->
-                <!--                    android:text="Hello world"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/user_details" />-->
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/user_details4"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginTop="50dp"-->
-                <!--                    android:text="Hello world"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/user_details3" />-->
+                <TextView
+                    android:id="@+id/user_details4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="Hello world"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_details3" />
 
 
                 <Button
@@ -351,9 +378,9 @@
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="100dp"
                     android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="100dp"
+                    android:layout_marginBottom="500dp"
                     android:background="@drawable/custom_blue_btn"
                     android:backgroundTint="@null"
                     android:fontFamily="@font/d_dinbold"
@@ -365,7 +392,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                    app:layout_constraintTop_toBottomOf="@+id/user_details4" />
+
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

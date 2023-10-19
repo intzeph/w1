@@ -141,7 +141,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+<<<<<<< HEAD
                         android:src="@drawable/star_icon" />
+=======
+                        android:src="@drawable/product_star_icon" />
+>>>>>>> cc4891f (final commit)
 
                     <TextView
                         android:id="@+id/rating_text"

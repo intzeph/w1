@@ -3,11 +3,6 @@ package com.example.wildtech;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,7 +23,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,9 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     MaterialToolbar topAppBar;
     FirebaseAuth auth;
 
-    TextView textView, user_name, textView3, textView4, textView5, textView6,textView7,textView8;
+    TextView textView, textView2, textView3, textView4, textView5, textView6,textView7,textView8;
     FirebaseUser user;
 
     ImageView popular_img;
@@ -65,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    RecyclerView recyclerView;
-    ProductAdapter productAdapter;
-
-   List<item> itemList;
 
 
     @SuppressLint("WrongViewCast")
@@ -78,21 +65,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth=FirebaseAuth.getInstance();
-//
-//        textView= findViewById(R.id.user_details);
-        user_name = findViewById(R.id.user_name);
-//        textView3 = findViewById(R.id.user_details3);
-//        textView4 = findViewById(R.id.user_details4);
+
+        textView= findViewById(R.id.user_details);
+        textView2 = findViewById(R.id.user_details2);
+        textView3 = findViewById(R.id.user_details3);
+        textView4 = findViewById(R.id.user_details4);
         topAppBar= findViewById(R.id.topAppBar);
 
         bottomNavigationView = findViewById(R.id.h_bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.home_nav);
-
-
-        recyclerView = findViewById(R.id.cottages_sv);
-        productAdapter = new ProductAdapter(this, itemList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(productAdapter);
 
 
 
@@ -136,16 +117,16 @@ public class MainActivity extends AppCompatActivity {
 
 //        USE TO UPLOAD DATA
 //
-//        String productId = "cottage3";
-//        DatabaseReference newProductRef = databaseRef_offers.child(productId);
-//
-//        newProductRef.child("category").setValue("cottage");
-//        newProductRef.child("image").setValue("https://firebasestorage.googleapis.com/v0/b/wildtech-b4fc6.appspot.com/o/cottages%2Fcottage3.jpg?alt=media&token=66caa883-4f54-4bdf-85c3-71f7a8aa9c84");
-//        newProductRef.child("location").setValue("Somewhere, Philippines");
-//        newProductRef.child("name").setValue("cottage3");
-//        newProductRef.child("price").setValue("2000");
-//        newProductRef.child("ratingAvg").setValue(0);
-//        newProductRef.child("ratings").setValue("0");
+        String productId = "room5";
+        DatabaseReference newProductRef = databaseRef_offers.child(productId);
+
+        newProductRef.child("category").setValue("room");
+        newProductRef.child("image").setValue("https://firebasestorage.googleapis.com/v0/b/wildtech-b4fc6.appspot.com/o/rooms%2Froom8.jpg?alt=media&token=accb26c8-34ab-490e-9776-e9f0cb91cdbc");
+        newProductRef.child("location").setValue("Somewhere, Philippines");
+        newProductRef.child("name").setValue("room8");
+        newProductRef.child("price").setValue("2000");
+        newProductRef.child("ratingAvg").setValue(0);
+        newProductRef.child("ratings").setValue("0");
 
 
 
@@ -173,10 +154,14 @@ public class MainActivity extends AppCompatActivity {
                         View itemLayout = getLayoutInflater().inflate(R.layout.highlights_layout, null);
 
 
-
                         ImageView imageView = itemLayout.findViewById(R.id.highlight_img);
+
+
                         String imageURL = offerSnapshot.child("image").getValue(String.class);
+
+
                         Picasso.get().load(imageURL).fit().into(imageView);
+
 
                         // Add the item layout to the current row's LinearLayout
                         currentLinearLayout.addView(itemLayout);
@@ -197,38 +182,55 @@ public class MainActivity extends AppCompatActivity {
         databaseRef_offers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int count = 0;
+                LinearLayout currentLinearLayout = null;
 
-                List<item> roomItems = new ArrayList<>();
-
-                boolean addToLeft = true;
+                LinearLayout linearLayout = findViewById(R.id.rooms_linear_layout);
 
                 for (DataSnapshot offerSnapshot : snapshot.getChildren()) {
                     String category = offerSnapshot.child("category").getValue(String.class);
                     String subCategory = offerSnapshot.child("subCategory").getValue(String.class);
 
                     if ("room".equals(subCategory) || "room".equals(category) ) {
-                        String productID = offerSnapshot.child("productID").getValue(String.class);
+                        if (count % 2 == 0) {
+                            // Create a new vertical LinearLayout for every second item
+                            currentLinearLayout = new LinearLayout(MainActivity.this);
+                            currentLinearLayout.setOrientation(LinearLayout.VERTICAL);
+                            linearLayout.addView(currentLinearLayout);
+                        }
+
+                        // inflate the item layout
+                        View itemLayout = getLayoutInflater().inflate(R.layout.popular_layout, null);
+
+
+                        ImageView imageView = itemLayout.findViewById(R.id.popular_img);
+                        TextView titleTextView = itemLayout.findViewById(R.id.popular_text);
+                        TextView locationTextView = itemLayout.findViewById(R.id.location_text);
+                        TextView priceTextView = itemLayout.findViewById(R.id.price_text);
+                        TextView ratingTextView = itemLayout.findViewById(R.id.rating_text);
+
+
                         String imageURL = offerSnapshot.child("image").getValue(String.class);
                         String name = offerSnapshot.child("name").getValue(String.class);
                         String location = offerSnapshot.child("location").getValue(String.class);
                         String price = offerSnapshot.child("price").getValue(String.class);
                         int rating = offerSnapshot.child("ratingAvg").getValue(Integer.class);
+
                         String ratingString = String.valueOf(rating);
 
-                        item product = new item(productID, name, location, price, imageURL, rating);
-                        roomItems.add(product);
 
+                        Picasso.get().load(imageURL).fit().into(imageView);
+                        titleTextView.setText(name);
+                        locationTextView.setText(location);
+                        priceTextView.setText(price);
+                        ratingTextView.setText(ratingString);
 
+                        // Add the item layout to the current row's LinearLayout
+                        currentLinearLayout.addView(itemLayout);
+
+                        count++;
                     }
                 }
-
-                RecyclerView recyclerView = findViewById(R.id.rooms_sv);
-                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, roomItems);
-
-                // Set up a GridLayoutManager with horizontal orientation and 2 columns
-                GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2, RecyclerView.HORIZONTAL, false);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(productAdapter);
             }
 
             @Override
@@ -238,19 +240,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //cottages_layout done
+        //cottages_layout
         databaseRef_offers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<item> itemList  = new ArrayList<>();
+                int count = 0;
+                LinearLayout currentLinearLayout = null;
+
+                LinearLayout linearLayout = findViewById(R.id.cottages_linear_layout);
 
                 for (DataSnapshot offerSnapshot : snapshot.getChildren()) {
-
-
                     String category = offerSnapshot.child("category").getValue(String.class);
 
-                    if ("cottage".equals(category)) {
-                        String productID = offerSnapshot.child("productID").getValue(String.class);
+                    if ("popular".equals(category)) {
+                        if (count % 2 == 0) {
+                            // Create a new vertical LinearLayout for every second item
+                            currentLinearLayout = new LinearLayout(MainActivity.this);
+                            currentLinearLayout.setOrientation(LinearLayout.VERTICAL);
+                            linearLayout.addView(currentLinearLayout);
+                        }
+
+                        // inflate the item layout
+                        View itemLayout = getLayoutInflater().inflate(R.layout.popular_layout, null);
+
+
+                        ImageView imageView = itemLayout.findViewById(R.id.popular_img);
+                        TextView titleTextView = itemLayout.findViewById(R.id.popular_text);
+                        TextView locationTextView = itemLayout.findViewById(R.id.location_text);
+                        TextView priceTextView = itemLayout.findViewById(R.id.price_text);
+                        TextView ratingTextView = itemLayout.findViewById(R.id.rating_text);
+
+
                         String imageURL = offerSnapshot.child("image").getValue(String.class);
                         String name = offerSnapshot.child("name").getValue(String.class);
                         String location = offerSnapshot.child("location").getValue(String.class);
@@ -259,38 +279,41 @@ public class MainActivity extends AppCompatActivity {
 
                         String ratingString = String.valueOf(rating);
 
-                        item product = new item(productID, name, location, price, imageURL, rating);
-                        itemList.add(product);
 
+                        Picasso.get().load(imageURL).fit().into(imageView);
+                        titleTextView.setText(name);
+                        locationTextView.setText(location);
+                        priceTextView.setText(price);
+                        ratingTextView.setText(ratingString);
+
+                        // Add the item layout to the current row's LinearLayout
+                        currentLinearLayout.addView(itemLayout);
+
+                        count++;
                     }
                 }
-
-                RecyclerView recyclerView = findViewById(R.id.cottages_sv);
-                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, itemList);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                recyclerView.setAdapter(productAdapter);
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle onCancelled if needed
             }
         });
 
 
-        //popular_layout done
+        //popular_layout
         databaseRef_offers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<item> itemList  = new ArrayList<>();
+
 
                 for (DataSnapshot offerSnapshot : snapshot.getChildren()) {
 
                     String category = offerSnapshot.child("category").getValue(String.class);
 
                     if ("popular".equals(category)) {
-                        String productID = offerSnapshot.child("productID").getValue(String.class);
+
+
                         String imageURL = offerSnapshot.child("image").getValue(String.class);
                         String name = offerSnapshot.child("name").getValue(String.class);
                         String location = offerSnapshot.child("location").getValue(String.class);
@@ -299,14 +322,28 @@ public class MainActivity extends AppCompatActivity {
 
                         String ratingString = String.valueOf(rating);
 
-                        item product = new item(productID, name, location, price, imageURL, rating);
-                        itemList.add(product);
+
+                        View itemLayout = getLayoutInflater().inflate(R.layout.popular_layout, null);
+
+                        // Populate the item layout with data
+                        ImageView imageView = itemLayout.findViewById(R.id.popular_img);
+                        TextView titleTextView = itemLayout.findViewById(R.id.popular_text);
+                        TextView locationTextView = itemLayout.findViewById(R.id.location_text);
+                        TextView priceTextView = itemLayout.findViewById(R.id.price_text);
+                        TextView ratingTextView = itemLayout.findViewById(R.id.rating_text);
+
+
+                        Picasso.get().load(imageURL).fit().into(imageView);
+                        titleTextView.setText(name);
+                        locationTextView.setText(location);
+                        priceTextView.setText(price);
+                        ratingTextView.setText(ratingString);
+
+                        // Add the item layout to the LinearLayout
+                        LinearLayout linearLayout = findViewById(R.id.popular_linear_layout);
+                        linearLayout.addView(itemLayout);
                     }
                 }
-                RecyclerView recyclerView = findViewById(R.id.popular_sv);
-                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, itemList);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                recyclerView.setAdapter(productAdapter);
 
                 }
 
@@ -317,20 +354,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //pools_layout done
+        //pools_layout
         databaseRef_offers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int count = 0;
+                LinearLayout currentLinearLayout = null;
 
-                List<item> poolItems = new ArrayList<>();
-
-                boolean addToLeft = true;
+                LinearLayout linearLayout = findViewById(R.id.pools_linear_layout);
 
                 for (DataSnapshot offerSnapshot : snapshot.getChildren()) {
                     String category = offerSnapshot.child("category").getValue(String.class);
 
                     if ("pools".equals(category)) {
-                        String productID = offerSnapshot.child("productID").getValue(String.class);
+                        if (count % 2 == 0) {
+                            // Create a new vertical LinearLayout for every second item
+                            currentLinearLayout = new LinearLayout(MainActivity.this);
+                            currentLinearLayout.setOrientation(LinearLayout.VERTICAL);
+                            linearLayout.addView(currentLinearLayout);
+                        }
+
+                        // inflate the item layout
+                        View itemLayout = getLayoutInflater().inflate(R.layout.popular_layout, null);
+
+
+                        ImageView imageView = itemLayout.findViewById(R.id.popular_img);
+                        TextView titleTextView = itemLayout.findViewById(R.id.popular_text);
+                        TextView locationTextView = itemLayout.findViewById(R.id.location_text);
+                        TextView priceTextView = itemLayout.findViewById(R.id.price_text);
+                        TextView ratingTextView = itemLayout.findViewById(R.id.rating_text);
+
+
                         String imageURL = offerSnapshot.child("image").getValue(String.class);
                         String name = offerSnapshot.child("name").getValue(String.class);
                         String location = offerSnapshot.child("location").getValue(String.class);
@@ -339,23 +393,24 @@ public class MainActivity extends AppCompatActivity {
 
                         String ratingString = String.valueOf(rating);
 
-                        item product = new item(productID, name, location, price, imageURL, rating);
-                        poolItems.add(product);
+
+                        Picasso.get().load(imageURL).fit().into(imageView);
+                        titleTextView.setText(name);
+                        locationTextView.setText(location);
+                        priceTextView.setText(price);
+                        ratingTextView.setText(ratingString);
+
+                        // Add the item layout to the current row's LinearLayout
+                        currentLinearLayout.addView(itemLayout);
+
+                        count++;
                     }
                 }
-                RecyclerView recyclerView = findViewById(R.id.pools_sv);
-                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, poolItems);
-
-
-                GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2, RecyclerView.HORIZONTAL, false);
-
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(productAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle onCancelled if needed
             }
         });
 
@@ -371,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         user= auth.getCurrentUser();
-
+        String firstName = "";
 
 
             if(user != null){
@@ -380,17 +435,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String firstName = snapshot.child("first_name").getValue(String.class);
                         if (snapshot.exists()) {
-////
-//
-////                            String lastName = snapshot.child("last_name").getValue(String.class);
-////
-////                            textView.setText(user.getEmail());
-                                user_name.setText(firstName);
-////                            textView3.setText(lastName);
-////                            textView4.setText( user.getUid());
-////
+                            // Retrieve the user data from the dataSnapshot
+                            String firstName = snapshot.child("first_name").getValue(String.class);
+                            String lastName = snapshot.child("last_name").getValue(String.class);
+
+                            textView.setText(user.getEmail());
+                            textView2.setText(firstName);
+                            textView3.setText(lastName);
+                            textView4.setText( user.getUid());
+
                         }
 
                         GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
@@ -399,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
                             String googleEmail = googleAccount.getEmail();
                             String googleId = googleAccount.getId();
 
-                            // gonna to split the google name into first name only
+                            // Split the Google Display Name to get the first name
                             String[] nameParts = googleDisplayName.split(" ");
                             String googleFirstName = nameParts.length > 0 ? nameParts[0] : "";
 
@@ -407,17 +461,17 @@ public class MainActivity extends AppCompatActivity {
 
 
                             if (user.getProviderData().get(1).getProviderId().equals("google.com")) {
-                                user_name.setText(googleFirstName);
-//                                textView3.setText(googleEmail);
-//                                textView4.setText(user.getUid());
+                                textView2.setText(googleFirstName);
+                                textView3.setText(googleEmail);
+                                textView4.setText(user.getUid());
                                 if (!profileImageUrl.isEmpty()) {
                                     Picasso.get().load(profileImageUrl).into(img);
                                 }
                             } else {
                                 // The user signed in with another method (not Google)
-                                user_name.setText(firstName);
-//                                textView3.setText(user.getEmail());
-//                                textView4.setText( user.getUid());
+                                textView2.setText(firstName);
+                                textView3.setText(user.getEmail());
+                                textView4.setText( user.getUid());
                             }
                         }
 

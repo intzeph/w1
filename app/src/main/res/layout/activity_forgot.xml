@@ -104,7 +104,11 @@
         android:backgroundTint="@null"
         android:fontFamily="@font/d_dinbold"
         android:onClick="sendCodeBtn"
+<<<<<<< HEAD
         android:text="Check Email"
+=======
+        android:text="Send Code"
+>>>>>>> cc4891f (final commit)
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"

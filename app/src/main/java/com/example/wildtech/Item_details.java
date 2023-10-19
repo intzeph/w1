@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+<<<<<<< HEAD
+=======
+import android.widget.Button;
+>>>>>>> cc4891f (final commit)
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +26,10 @@ import org.w3c.dom.Text;
 public class Item_details extends AppCompatActivity {
 
     DatabaseReference databaseReference,databaseRef;
+<<<<<<< HEAD
+=======
+    Button bookBtn;
+>>>>>>> cc4891f (final commit)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,11 @@ public class Item_details extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+<<<<<<< HEAD
+=======
+        bookBtn=findViewById(R.id.bookBtn);
+
+>>>>>>> cc4891f (final commit)
 
         String incomingProductID = intent.getStringExtra("product_id");
 
@@ -100,6 +113,18 @@ public class Item_details extends AppCompatActivity {
             Log.e("Item_details", "Invalid or missing productID");
         }
 
+<<<<<<< HEAD
+=======
+        bookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(Item_details.this, Account.class);
+                intent.putExtra("show_booking1_process", true);
+                startActivity(intent);
+            }
+        });
+
+>>>>>>> cc4891f (final commit)
 
 
 
