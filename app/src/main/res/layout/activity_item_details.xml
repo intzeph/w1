@@ -7,10 +7,6 @@
     android:layout_height="match_parent"
     android:background="#F9F9F9"
     tools:context=".Item_details">
-<<<<<<< HEAD
-
-=======
->>>>>>> cc4891f (final commit)
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -57,11 +53,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
-<<<<<<< HEAD
-                    android:onClick="shareBtn"
-=======
                     android:id="@+id/shareBtn"
->>>>>>> cc4891f (final commit)
                     android:elevation="10dp"
                     android:foreground="?attr/selectableItemBackground"
                     android:clickable="true"
@@ -161,22 +153,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-<<<<<<< HEAD
-                            android:src="@drawable/star_icon" />
-=======
                             android:src="@drawable/product_star_icon" />
->>>>>>> cc4891f (final commit)
 
                         <TextView
                             android:id="@+id/item_rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
-<<<<<<< HEAD
-                            android:text="4.9"
-=======
                             android:text=""
->>>>>>> cc4891f (final commit)
                             android:textSize="16sp"
                             android:textColor="#8B8B8B"
                             />
@@ -186,11 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
-<<<<<<< HEAD
-                            android:text="(120)"
-=======
                             android:text=""
->>>>>>> cc4891f (final commit)
                             android:textSize="14sp"
                             android:textColor="#8B8B8B"
                             />
@@ -202,11 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/d_dinbold"
-<<<<<<< HEAD
-                        android:text="5500"
-=======
                         android:text=""
->>>>>>> cc4891f (final commit)
                         android:textColor="#5EB797"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -286,9 +262,6 @@
                     android:layout_marginBottom="10dp"
                     app:cardBackgroundColor="#E9E9E9"
                     app:cardCornerRadius="10dp"
-<<<<<<< HEAD
-                    app:cardElevation="0dp"></androidx.cardview.widget.CardView>
-=======
                     app:cardElevation="0dp">
                     <LinearLayout
                         android:gravity="center"
@@ -312,7 +285,6 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
->>>>>>> cc4891f (final commit)
 
                 <androidx.cardview.widget.CardView
 
@@ -324,9 +296,6 @@
                     app:cardBackgroundColor="#E9E9E9"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="0dp">
-<<<<<<< HEAD
-
-=======
                     <LinearLayout
                         android:gravity="center"
                         android:layout_width="match_parent"
@@ -347,7 +316,6 @@
                             android:textColor="#4E4E4E"/>
 
                     </LinearLayout>
->>>>>>> cc4891f (final commit)
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -358,9 +326,6 @@
                     android:layout_marginBottom="10dp"
                     app:cardBackgroundColor="#E9E9E9"
                     app:cardCornerRadius="10dp"
-<<<<<<< HEAD
-                    app:cardElevation="0dp"></androidx.cardview.widget.CardView>
-=======
                     app:cardElevation="0dp">
                     <LinearLayout
                         android:gravity="center"
@@ -383,7 +348,6 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
->>>>>>> cc4891f (final commit)
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="58dp"
@@ -393,9 +357,6 @@
                     app:cardBackgroundColor="#E9E9E9"
 
                     app:cardCornerRadius="10dp"
-<<<<<<< HEAD
-                    app:cardElevation="0dp"></androidx.cardview.widget.CardView>
-=======
                     app:cardElevation="0dp">
                     <LinearLayout
                         android:gravity="center"
@@ -419,7 +380,6 @@
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
->>>>>>> cc4891f (final commit)
 
 
             </LinearLayout>
@@ -451,10 +411,7 @@
 
     </ScrollView>
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> cc4891f (final commit)
 </androidx.constraintlayout.widget.ConstraintLayout>

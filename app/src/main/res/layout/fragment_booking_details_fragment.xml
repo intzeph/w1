@@ -528,6 +528,7 @@
                             android:id="@+id/textView15"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
                             android:text="Additional:"
                             android:textSize="15sp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -536,8 +537,10 @@
 
                         <!--additional layout-->
                         <LinearLayout
+                            android:padding="3dp"
+                            android:background="@drawable/black_border"
                             android:id="@+id/additional_layout"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:orientation="vertical"
@@ -546,7 +549,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/textView15">
 
                             <Spinner
-
+                                android:id="@+id/additionalSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerHorizontal="true"
@@ -554,17 +557,6 @@
                                 android:paddingTop="10dp"
                                 android:paddingBottom="10dp"
                                 android:textAlignment="center" />
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <View
-                                    android:layout_width="100dp"
-                                    android:layout_height="1dp"
-                                    android:background="@color/black" />
-                            </LinearLayout>
 
                         </LinearLayout>
 

@@ -54,14 +54,14 @@ public class booking_details_fragment extends Fragment {
 
     private TextView start_date_textView, end_date_textView,price_room_preview;
 
-    private DatabaseReference databaseRef_offers;
+    private DatabaseReference databaseRef_offers, databaseRef_additional;
 
     private int value = 1;
 
     private int C_value = 0;
 
 
-    private Spinner productSpinner;
+    private Spinner productSpinner, additionalSpinner;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -152,6 +152,7 @@ public class booking_details_fragment extends Fragment {
 
 
         databaseRef_offers = FirebaseDatabase.getInstance(getString(R.string.firebase_url)).getReference("Offers");
+        databaseRef_additional = FirebaseDatabase.getInstance(getString(R.string.firebase_url)).getReference("Additional");
 
 
         CarrowUp.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +167,7 @@ public class booking_details_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (C_value >0 ) {
-                    // Decrement the value (if it's greater than 1)
+
                     C_value--;
                     CeditText.setText(String.valueOf(C_value));
 
@@ -252,6 +253,7 @@ public class booking_details_fragment extends Fragment {
 
 
         productSpinner = view.findViewById(R.id.productSpinner);
+        additionalSpinner = view.findViewById(R.id.additionalSpinner);
 
         Query query = databaseRef_offers.orderByChild("category").equalTo("room");
 
@@ -327,13 +329,6 @@ public class booking_details_fragment extends Fragment {
 
             }
         });
-
-
-
-
-
-
-
 
 
 
